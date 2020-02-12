@@ -1,21 +1,20 @@
 import React from 'react'
-import useGet from './useGet'
-import usePost from './usePost'
-import useDelete from './useDelete'
+import Rest from './rest'
 
-const url = `https://mymoney-6a4a5.firebaseio.com/movimentacoes.json`
+const baseUrl = `https://mymoney-6a4a5.firebaseio.com/`,
+  { useGet, usePost, useDelete } = Rest(baseUrl)
 
 function App() {
-  const data = useGet(url)
-  const [postData, post] = usePost(url)
-  const [deleteData, remove] = useDelete()
+  const data = useGet(`movimentacoes/2020-02`),
+    [postData, post] = usePost(`movimentacoes/2020-02`),
+    [deleteData, remove] = useDelete()
 
   const saveNew = () => {
     post({ valor: 10, descricao: 'biscoito' })
   }
 
   const doRemove = () => {
-    remove(`https://mymoney-6a4a5.firebaseio.com/movimentacoes/-M-oqlOIglumMe4Mp1Az.json`)
+    remove(`movimentacoes/2020-02/-M-pgbXyzwYaqTF89opK`)
   }
 
   return (
