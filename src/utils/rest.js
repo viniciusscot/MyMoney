@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react'
+import { useReducer, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 const INITIAL_STATE = {
@@ -21,27 +21,32 @@ const init = baseUrl => {
     const useGet = resource => {
         const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
 
-        useEffect(() => {
+        const carregar = useCallback(async () => {
             dispatch({ type: 'REQUEST' })
 
-            axios.get(baseUrl + resource + `.json`).then(res => {
-                dispatch({ type: 'SUCCESS', data: res.data })
-            })
+            const res = await axios.get(baseUrl + resource + `.json`)
+
+            dispatch({ type: 'SUCCESS', data: res.data })
         }, [resource])
 
-        return data
+        useEffect(() => {
+            carregar()
+        }, [carregar])
+
+
+
+        return { ...data, refetch: carregar }
     }
 
     const usePost = resource => {
         const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
 
-        const post = data => {
+        const post = async data => {
             dispatch({ type: 'REQUEST' })
 
-            axios.post(baseUrl + resource + `.json`, data).then(res => {
-                dispatch({ type: 'SUCCESS', data: res.data })
-                console.log(res.data)
-            })
+            const res = await axios.post(baseUrl + resource + `.json`, data)
+
+            dispatch({ type: 'SUCCESS', data: res.data })
         }
 
         return [data, post]
@@ -50,12 +55,12 @@ const init = baseUrl => {
     const useDelete = () => {
         const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
 
-        const remove = resource => {
+        const remove = async resource => {
             dispatch({ type: 'REQUEST' })
 
-            axios.delete(baseUrl + resource + `.json`).then(() => {
-                dispatch({ type: 'SUCCESS' })
-            })
+            await axios.delete(baseUrl + resource + `.json`)
+
+            dispatch({ type: 'SUCCESS' })
         }
 
         return [data, remove]
