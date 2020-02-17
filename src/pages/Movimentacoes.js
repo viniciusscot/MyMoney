@@ -7,6 +7,7 @@ const baseUrl = `https://mymoney-6a4a5.firebaseio.com/`,
 
 const Movimentacoes = ({ match }) => {
     const data = useGet(`movimentacoes/${match.params.data}`)
+    const dataMeses = useGet(`meses/${match.params.data}`)
     const salvar = usePost(`movimentacoes/${match.params.data}`)[1]
     const remover = useDelete()[1]
     const [descricao, setDescricao] = useState('')
@@ -23,17 +24,27 @@ const Movimentacoes = ({ match }) => {
             setDescricao('')
             setValor(0.0)
             data.refetch()
+            dataMeses.refetch()
         }
     }
 
     const removerMovimentacao = async id => {
         await remover(`movimentacoes/${match.params.data}/${id}`)
         data.refetch()
+        dataMeses.refetch()
     }
 
     return (
         <div className='container'>
             <h1>Movimentações</h1>
+
+            {!dataMeses.loading && (
+                <div>
+                    Previsão entrada: {dataMeses.data.previsao_entrada} / Previsão saida: {dataMeses.data.previsao_saida}
+                    <br />
+                    Entrada: {dataMeses.data.entradas} / Saida: {dataMeses.data.saidas}
+                </div>
+            )}
 
             <table className='table'>
                 <thead>
