@@ -13,14 +13,17 @@ const Movimentacoes = ({ match }) => {
     const [valor, setValor] = useState(0)
 
     const salvarMovimentacao = async () => {
-        await salvar({
-            descricao,
-            valor
-        })
+        if (!isNaN(valor) || valor.search(/^[-]?\d+(\.)?\d+?$/) >= 0) {
 
-        setDescricao('')
-        setValor(0.0)
-        data.refetch()
+            await salvar({
+                descricao,
+                valor: parseFloat(valor)
+            })
+
+            setDescricao('')
+            setValor(0.0)
+            data.refetch()
+        }
     }
 
     const removerMovimentacao = async id => {
@@ -43,9 +46,9 @@ const Movimentacoes = ({ match }) => {
                     {data.data && Object.keys(data.data).map(movimentacao => (
                         <tr key={movimentacao}>
                             <td>{data.data[movimentacao].descricao}</td>
-                            <td>
-                                {data.data[movimentacao].valor}
-                                <button onClick={() => removerMovimentacao(movimentacao)}>-</button>
+                            <td className='text-right'>
+                                {data.data[movimentacao].valor}{' '}
+                                <button className='btn btn-danger' onClick={() => removerMovimentacao(movimentacao)}>-</button>
                             </td>
                         </tr>
                     ))}
@@ -53,7 +56,7 @@ const Movimentacoes = ({ match }) => {
                         <td><input type='text' value={descricao} id='descricao' onChange={e => setDescricao(e.target.value)} /></td>
                         <td>
                             <input type='text' value={valor} id='valor' onChange={e => setValor(e.target.value)} />
-                            <button onClick={salvarMovimentacao}>+</button>
+                            <button className='btn btn-success' onClick={salvarMovimentacao}>+</button>
                         </td>
                     </tr>
                 </tbody>
