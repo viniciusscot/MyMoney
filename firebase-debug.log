@@ -1,0 +1,80 @@
+[debug] [2020-02-17T15:53:31.207Z] ----------------------------------------------------------------------
+[debug] [2020-02-17T15:53:31.208Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2020-02-17T15:53:31.208Z] CLI Version:   7.13.0
+[debug] [2020-02-17T15:53:31.208Z] Platform:      linux
+[debug] [2020-02-17T15:53:31.208Z] Node Version:  v10.16.0
+[debug] [2020-02-17T15:53:31.208Z] Time:          Mon Feb 17 2020 12:53:31 GMT-0300 (GMT-03:00)
+[debug] [2020-02-17T15:53:31.209Z] ----------------------------------------------------------------------
+[debug] [2020-02-17T15:53:31.209Z] 
+[debug] [2020-02-17T15:53:31.213Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-17T15:53:31.213Z] > authorizing via signed-in user
+[debug] [2020-02-17T15:53:31.213Z] [iam] checking project mymoney-6a4a5 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-02-17T15:53:31.214Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-02-17T15:53:31.215Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-02-17T15:53:31.450Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-17T15:53:31.457Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/mymoney-6a4a5:testIamPermissions  
+
+[debug] [2020-02-17T15:53:32.565Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-17T15:53:32.568Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/mymoney-6a4a5  
+ 
+[debug] [2020-02-17T15:53:33.842Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'mymoney-6a4a5'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-02-17T15:53:34.748Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/mymoney-6a4a5/versions  
+
+[debug] [2020-02-17T15:53:46.541Z] <<< HTTP RESPONSE 503
+[debug] [2020-02-17T15:53:46.541Z] <<< HTTP RESPONSE BODY
+[error] 
+[error] Error: HTTP Error: 503, The service is currently unavailable.
+[debug] [2020-02-17T15:53:46.739Z] Error Context: {
+  "body": {
+    "error": {
+      "code": 503,
+      "message": "The service is currently unavailable.",
+      "status": "UNAVAILABLE"
+    }
+  },
+  "response": {
+    "statusCode": 503,
+    "body": {
+      "error": {
+        "code": 503,
+        "message": "The service is currently unavailable.",
+        "status": "UNAVAILABLE"
+      }
+    },
+    "headers": {
+      "vary": "X-Origin, Referer, Origin,Accept-Encoding",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Mon, 17 Feb 2020 15:53:46 GMT",
+      "server": "ESF",
+      "cache-control": "private",
+      "x-xss-protection": "0",
+      "x-frame-options": "SAMEORIGIN",
+      "x-content-type-options": "nosniff",
+      "alt-svc": "quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000",
+      "accept-ranges": "none",
+      "transfer-encoding": "chunked"
+    },
+    "request": {
+      "uri": {
+        "protocol": "https:",
+        "slashes": true,
+        "auth": null,
+        "host": "firebasehosting.googleapis.com",
+        "port": 443,
+        "hostname": "firebasehosting.googleapis.com",
+        "hash": null,
+        "search": null,
+        "query": null,
+        "pathname": "/v1beta1/sites/mymoney-6a4a5/versions",
+        "path": "/v1beta1/sites/mymoney-6a4a5/versions",
+        "href": "https://firebasehosting.googleapis.com/v1beta1/sites/mymoney-6a4a5/versions"
+      },
+      "method": "POST"
+    }
+  }
+}
